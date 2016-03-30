@@ -13,12 +13,11 @@ module.exports = {
     output: {
         path      : path.join(__dirname, "app"),
         publicPath: "/",
-        filename  : "js/main.js",
+        filename  : "js/bundle.js",
         pathInfo  : DEBUG
     },
     externals: {
-        "loquat": true,
-        "ace"   : true
+        "ace": true
     },
     plugins:
         DEBUG ? [] : [
