@@ -28,10 +28,9 @@ module.exports = {
     module: {
         loaders: [
             {
-                loader : "babel-loader",
-                test   : /\.js$/,
-                exclude: /node_modules/,
-                query  : {
+                loader: "babel-loader",
+                test  : /\.js$/,
+                query : {
                     plugins: ["transform-runtime"],
                     presets: ["es2015"]
                 }
