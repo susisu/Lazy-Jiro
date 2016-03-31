@@ -8,12 +8,12 @@
 import "babel-polyfill";
 
 import ace  from "ace";
-import lazy from "lazyk-js";
-
-import { run }       from "./interpreter.js";
-import { translate } from "./translator.js";
 
 window.addEventListener("load", () => {
+    if (!window.Worker) {
+        console.log("Worker is not supported");
+        return;
+    }
     // initialize editors
     let editor       = ace.edit("editor");
     let inputEditor  = ace.edit("input-editor");
@@ -61,55 +61,56 @@ xy！ = \`xy (関数適用)
         let src    = editor.getValue();
         let input  = inputEditor.getValue();
         let output = "";
-        outputEditor.setValue(output)
-        try {
-            run(
-                "",
-                src,
-                new lazy.stream.StringStream(input),
-                x => {
-                    output += x;
-                    outputEditor.setValue(output)
-                },
-                c => {
+        outputEditor.setValue(output);
+        let worker = new Worker("./js/worker.bundle.js");
+        worker.addEventListener("message", event => {
+            switch (event.data.type) {
+                case "output":
+                    output += event.data.value;
+                    outputEditor.setValue(output);
+                    break;
+                case "exit":
+                    worker.terminate();
                     enable();
-                }
-            ).catch(error => {
-                if (!(error instanceof lazy.lambda.Exit)) {
-                    outputEditor.setValue(String(error));
-                }
-                enable();
-            });
-        }
-        catch (error) {
-            outputEditor.setValue(String(error));
-            enable();
-        }
+                    break;
+                case "error":
+                    outputEditor.setValue(event.data.message);
+                    worker.terminate();
+                    enable();
+                    break;
+            }
+        });
+        worker.postMessage({
+            type : "run",
+            name : "",
+            src  : src,
+            input: input
+        });
     });
 
     translateButton.addEventListener("click", () => {
         disable();
         let src = editor.getValue();
-        let translated = "";
-        try {
-            translated = translate("", src);
-        }
-        catch (error) {
-            outputEditor.setValue(String(error));
-            return;
-        }
-        let output = "";
-        while (translated.length > 0) {
-            let chunk = translated.substr(0, 40);
-            translated = translated.substr(40);
-            if (chunk[chunk.length - 1] === "ブ") {
-                chunk = chunk.slice(0, -1);
-                translated = "ブ" + translated;
+        let worker = new Worker("./js/worker.bundle.js");
+        worker.addEventListener("message", event => {
+            switch (event.data.type) {
+                case "success":
+                    outputEditor.setValue(event.data.value);
+                    worker.terminate();
+                    enable();
+                    break;
+                case "error":
+                    outputEditor.setValue(event.data.message);
+                    worker.terminate();
+                    enable();
+                    break;
             }
-            output += chunk + "\n";
-        }
-        outputEditor.setValue(output);
-        enable();
+        });
+        worker.postMessage({
+            type : "translate",
+            name : "",
+            src  : src
+        });
     });
 
     sampleSelect.addEventListener("change", () => {

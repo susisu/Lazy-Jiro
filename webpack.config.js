@@ -10,7 +10,8 @@ module.exports = {
     devtool: DEBUG ? "#source-map" : "",
     context: __dirname,
     entry: {
-        main: "./src/js/main.js"
+        main: "./src/js/main.js",
+        worker: "./src/js/worker.js"
     },
     output: {
         path      : path.join(__dirname, "app"),
