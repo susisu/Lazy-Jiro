@@ -34,11 +34,15 @@ xy！ = \`xy (関数適用)
     let runButton       = document.getElementById("run-button");
     let translateButton = document.getElementById("translate-button");
 
+    // select
+    let sampleSelect = document.getElementById("sample-select");
+
     function enable() {
         editor.setReadOnly(false);
         inputEditor.setReadOnly(false);
         runButton.disabled       = false;
         translateButton.disabled = false;
+        sampleSelect.disabled    = false;
     }
 
     function disable() {
@@ -46,6 +50,7 @@ xy！ = \`xy (関数適用)
         inputEditor.setReadOnly(true);
         runButton.disabled       = true;
         translateButton.disabled = true;
+        sampleSelect.disabled    = true;
     }
 
     enable();
@@ -105,5 +110,21 @@ xy！ = \`xy (関数適用)
         }
         outputEditor.setValue(output);
         enable();
+    });
+
+    sampleSelect.addEventListener("change", () => {
+        let name = sampleSelect.options[sampleSelect.selectedIndex].value;
+        let src  = "";
+        switch (name) {
+            case "none":
+                return;
+            case "echo":
+                src = `平成28年4月1日金曜日、ラメーン二郎 歯舞店、ラメーン 700YEN
+麺、極めて柔らか、汁染みまくってて、ウンメ〜ッ！
+汁、ウンメ〜ッ！醤油利いててメッチャ俺好みのもの。
+完飲。`;
+                break;
+        }
+        editor.setValue(src);
     });
 });
