@@ -15,7 +15,10 @@ class Token {
     }
 }
 
-let whiteSpaces = lq.noneOf("麺汁ブ!！").manyChar();
+let whiteSpaces = lq.choice([
+    lq.noneOf("麺汁ブ!！"),
+    lq.char("ブ").notFollowedBy(lq.char("タ"))
+]).manyChar().label("");
 
 function lexeme(p) {
     return p.left(whiteSpaces);
