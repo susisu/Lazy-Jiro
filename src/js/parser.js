@@ -93,6 +93,6 @@ function construct(tokens) {
     return stack.pop();
 }
 
-export default function parse(name, src) {
+export function parse(name, src) {
     return construct(tokenize(name, src));
 }

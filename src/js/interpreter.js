@@ -7,7 +7,7 @@
 
 import lazy from "lazyk-js";
 
-import parse from "./parser.js";
+import { parse } from "./parser.js";
 
 let prelude = Object.create(null);
 prelude["S"] =
@@ -42,7 +42,7 @@ prelude["I"] =
     ).generate(prelude);
 Object.freeze(prelude);
 
-export default function run(name, src, input, output, exit) {
+export function run(name, src, input, output, exit) {
     let expr = parse(name, src);
     let istream = new lazy.lambda.Literal(
         "input",
