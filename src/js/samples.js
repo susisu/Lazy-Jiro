@@ -5,7 +5,7 @@
 
 "use strict";
 
-import echo from "./samples/echo.js";
+import echo     from "../../samples/echo.txt";
 
 export default {
     echo

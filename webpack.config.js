@@ -31,6 +31,10 @@ module.exports = {
     module: {
         loaders: [
             {
+                loader: "raw",
+                test  : /\.(txt|md)$/
+            },
+            {
                 loader: "babel-loader",
                 test  : /\.js$/,
                 query : {
