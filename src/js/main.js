@@ -9,6 +9,8 @@ import "babel-polyfill";
 
 import ace  from "ace";
 
+import samples from "./samples.js";
+
 window.addEventListener("load", () => {
     if (!window.Worker) {
         let messageText = document.getElementById("message-text");
@@ -142,11 +144,7 @@ xy！ = \`xy (関数適用)
             case "none":
                 return;
             case "echo":
-                src = `平成28年4月1日金曜日、ラメーン二郎 歯舞店、ラメーン 700YEN
-麺、極めて柔らか、汁染みまくってて、ウンメ〜ッ！
-汁、醤油利いててメッチャ俺好みのもの。濃厚でウンメ〜ッ！
-ブタ、プリリとした食感。脂身甘くてウンメ〜ッ！
-完飲。`;
+                src = samples.echo;
                 break;
         }
         editor.setValue(src);
