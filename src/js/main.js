@@ -32,6 +32,7 @@ xy！ = \`xy (関数適用)
 
     // buttons
     let runButton       = document.getElementById("run-button");
+    let stopButton      = document.getElementById("stop-button");
     let translateButton = document.getElementById("translate-button");
 
     // select
@@ -41,6 +42,7 @@ xy！ = \`xy (関数適用)
         editor.setReadOnly(false);
         inputEditor.setReadOnly(false);
         runButton.disabled       = false;
+        stopButton.disabled      = true;
         translateButton.disabled = false;
         sampleSelect.disabled    = false;
     }
@@ -49,20 +51,34 @@ xy！ = \`xy (関数適用)
         editor.setReadOnly(true);
         inputEditor.setReadOnly(true);
         runButton.disabled       = true;
+        stopButton.disabled      = false;
         translateButton.disabled = true;
         sampleSelect.disabled    = true;
     }
 
     enable();
 
+    let worker = null;
+
+    function interrupt() {
+        if (worker) {
+            worker.terminate();
+            worker = null;
+            enable();
+        }
+    }
+
     // button events
     runButton.addEventListener("click", () => {
+        if (worker) {
+            return;
+        }
         disable();
         let src    = editor.getValue();
         let input  = inputEditor.getValue();
         let output = "";
         outputEditor.setValue(output);
-        let worker = new Worker("./js/worker.bundle.js");
+        worker = new Worker("./js/worker.bundle.js");
         worker.addEventListener("message", event => {
             switch (event.data.type) {
                 case "output":
@@ -70,13 +86,11 @@ xy！ = \`xy (関数適用)
                     outputEditor.setValue(output);
                     break;
                 case "exit":
-                    worker.terminate();
-                    enable();
+                    interrupt();
                     break;
                 case "error":
                     outputEditor.setValue(event.data.message);
-                    worker.terminate();
-                    enable();
+                    interrupt();
                     break;
             }
         });
@@ -88,21 +102,26 @@ xy！ = \`xy (関数適用)
         });
     });
 
+    stopButton.addEventListener("click", () => {
+        interrupt();
+    });
+
     translateButton.addEventListener("click", () => {
+        if (worker) {
+            return;
+        }
         disable();
         let src = editor.getValue();
-        let worker = new Worker("./js/worker.bundle.js");
+        worker = new Worker("./js/worker.bundle.js");
         worker.addEventListener("message", event => {
             switch (event.data.type) {
                 case "success":
                     outputEditor.setValue(event.data.value);
-                    worker.terminate();
-                    enable();
+                    interrupt();
                     break;
                 case "error":
                     outputEditor.setValue(event.data.message);
-                    worker.terminate();
-                    enable();
+                    interrupt();
                     break;
             }
         });
