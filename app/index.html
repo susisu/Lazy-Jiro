@@ -3,10 +3,35 @@
     <head>
         <meta charset="utf-8">
         <title>Lazy Jiro</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
         <script type="text/javascript" src="js/components/ace/ace.js"></script>
         <script type="text/javascript" src="js/bundle.js"></script>
     </head>
     <body>
-        test
+        <div id="editor-wrapper">
+            <p>
+                <label for="sample">サンプル: </label>
+                <select name="sample">
+                    <option value="none">--------</option>
+                    <option value="echo">echo</option>
+                    <option value="fizzbuzz">FizzBuzz</option>
+                    <option value="primes">素数</option>
+                </select>
+                <button id="run-button">実行</button>
+                <button id="translate-button">Lazy K から変換</button>
+            </p>
+            <div id="editor"></div>
+        </div>
+        <div id="toolbox">
+            <div id="input">
+                <p>入力</p>
+                <div id="input-editor"></div>
+            </div>
+            <!-- <button id="run-button">実行</button> -->
+            <div id="output">
+                <p>出力</p>
+                <div id="output-editor"></div>
+            </div>
+        </div>
     </body>
 </html>

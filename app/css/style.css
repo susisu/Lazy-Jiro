@@ -1,0 +1,73 @@
+@charset "utf-8";
+
+html, body {
+    width   : 100%;
+    height  : 100%;
+    overflow: hidden;
+    padding : 0;
+    margin  : 0;
+}
+
+body {
+    background-color: #f0f0f0;
+    font-size: 10pt;
+}
+
+#editor-wrapper {
+    background-color: #c02060;
+    color           : #f0f0f0;
+    position        : relative;
+    width           : 50%;
+    height          : 100%;
+    padding         : 0;
+}
+
+#editor {
+    position: absolute;
+    top     : 24px;
+    bottom  : 0;
+    left    : 0;
+    right   : 0;
+}
+
+#toolbox {
+    background-color: #2060c0;
+    position        : absolute;
+    top             : 0;
+    bottom          : 0;
+    left            : 50%;
+    right           : 0;
+}
+
+#input {
+    position: relative;
+    height  : 50%;
+}
+
+#input-editor {
+    position: absolute;
+    top     : 24px;
+    bottom  : 0;
+    left    : 0;
+    right   : 0;
+}
+
+#output {
+    position: relative;
+    height  : 50%;
+}
+
+#output-editor {
+    position: absolute;
+    top     : 24px;
+    bottom  : 0;
+    left    : 0;
+    right   : 0;
+}
+
+#editor-wrapper > p, #input > p, #output > p {
+    color      : #f0f0f0;
+    margin     : 0;
+    line-height: 24px;
+    text-align : center;
+}
