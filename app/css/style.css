@@ -82,4 +82,12 @@ body {
     margin     : 0;
     line-height: 24px;
     text-align : center;
+    height     : 24px;
+}
+
+.twitter-share-button {
+    display       : inline-block;
+    vertical-align: top;
+    margin        : 2px 4px;
+    height        : 20px;
 }
