@@ -38,6 +38,7 @@
     "webpack-dev-middleware": "^1.6.1"
   },
   "dependencies": {
+    "lazyk-js": "^0.1.5",
     "loquat": "^1.3.2"
   }
 }
