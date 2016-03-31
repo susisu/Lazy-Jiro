@@ -54,7 +54,7 @@ function tokenize(name, src) {
         return res.value;
     }
     else {
-        throw new Error(res.error.toString());
+        throw res.error;
     }
 }
 
