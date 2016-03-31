@@ -9,11 +9,13 @@ module.exports = {
     debug: DEBUG,
     devtool: DEBUG ? "#source-map" : "",
     context: __dirname,
-    entry: "./src/js/main.js",
+    entry: {
+        main: "./src/js/main.js"
+    },
     output: {
         path      : path.join(__dirname, "app"),
         publicPath: "/",
-        filename  : "js/bundle.js",
+        filename  : "js/[name].bundle.js",
         pathInfo  : DEBUG
     },
     externals: {
