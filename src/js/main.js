@@ -11,7 +11,10 @@ import ace  from "ace";
 
 window.addEventListener("load", () => {
     if (!window.Worker) {
-        console.log("Worker is not supported");
+        let messageText = document.getElementById("message-text");
+        messageText.innerText = "Web workers がサポートされていません";
+        let message = document.getElementById("message");
+        message.style.display = "block";
         return;
     }
     // initialize editors

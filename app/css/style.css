@@ -13,6 +13,18 @@ body {
     font-size: 10pt;
 }
 
+#message {
+    display         : none;
+    background-color: #f0f0f0;
+    color           : #303030;
+    position        : absolute;
+    top             : 0;
+    bottom          : 0;
+    left            : 0;
+    right           : 0;
+    text-align      : center;
+}
+
 #editor-wrapper {
     background-color: #c02060;
     color           : #f0f0f0;
