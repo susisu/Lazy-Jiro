@@ -19,6 +19,16 @@ window.addEventListener("load", () => {
     let inputEditor  = ace.edit("input-editor");
     let outputEditor = ace.edit("output-editor");
     outputEditor.setReadOnly(true);
+    outputEditor.setValue(`Lazy Jiro
+copyright (c) 2016 Susisu (@susisu2413)
+inspired by @habomaijiro
+
+麺   = s
+汁   = k
+ブタ = i
+xy！ = \`xy (関数適用)
+これ以外の文字はコメントとして扱われます。
+`)
 
     // buttons
     let runButton       = document.getElementById("run-button");
