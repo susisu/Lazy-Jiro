@@ -87,9 +87,6 @@ function construct(tokens) {
     if (stack.length < 1) {
         throw new Error("完飲。");
     }
-    else if (stack.length > 1) {
-        throw new Error("完飲しろ。");
-    }
     return stack.pop();
 }
 
